@@ -12,7 +12,7 @@ Silahkan atur di function
 <pre>
 {
     "success": true,
-    "load_time": 0.7168,
+    "load_time": 0.2131,
     "page": 1,
     "category": "hentai",
     "data": [
