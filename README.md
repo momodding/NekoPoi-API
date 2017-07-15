@@ -26,4 +26,7 @@ Silahkan atur di function
         ...............
 </pre>
 
+<a href="https://poipoi.bayyu.net" target="_blank" class="button pill">Demo</a>
+
+
 Untuk API ini tersedia untuk Hentai List saja, Untuk kategori lainnya akan ada di update selanjutnya.
