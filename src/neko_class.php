@@ -10,12 +10,13 @@
 * Project 	: http://github.com/MuhBayu
 *----------------------------------
 */
+namespace PoiPoi;
 require_once('lib/err_handling.php'); // handling error...
 require_once('lib/simple_html_dom.php'); //library untuk grabNya
 
 class NekoPoi_
 {
-	protected $_NEKO_HENTAI 	= '/category/hentai/';
+	protected $_NEKO_HENTAI = '/category/hentai/';
 	function __construct() {
 		# code...
 	}
@@ -31,9 +32,9 @@ class NekoPoi_
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch, CURLOPT_ENCODING, 'gzip, deflate');
 		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
-		$result 	 = curl_exec($ch);
-		$http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-  		$curl_errno  = curl_errno($ch);
+		$result 	= curl_exec($ch);
+		$http_status 	= curl_getinfo($ch, CURLINFO_HTTP_CODE);
+  		$curl_errno  	= curl_errno($ch);
 		curl_close($ch);
   		if($curl_errno) {
   			return Self::show_err($curl_errno);
@@ -47,10 +48,10 @@ class NekoPoi_
 		if($page !== NULL && $page > 1) {
 			$this->_NEKO_HENTAI = $this->_NEKO_HENTAI . 'page/' . $page . '/';
 		}
-		$output['success'] 			= true;
-		$output['load_time'] 		= 0;
-		$output['page']	 			= $page;
-		$output['category'] 		= "hentai";
+		$output['success'] 	= true;
+		$output['load_time'] 	= 0;
+		$output['page']	 	= $page;
+		$output['category'] 	= "hentai";
 
 		if($data = Self::cURL($this->_NEKO_HENTAI)) {
 			$html 	= str_get_html($data);
@@ -58,15 +59,15 @@ class NekoPoi_
 			$hen 	= $result->find('ul li');
 			foreach ($hen as $key => $value) {
 				if ($key >= 10) break;
-				$json['title'] 	= $value->find('h2 a', 0)->plaintext;
-				$json['link'] 	= $value->find('h2 a', 0)->href;
+				$json['title'] = $value->find('h2 a', 0)->plaintext;
+				$json['link'] = $value->find('h2 a', 0)->href;
 				$json['img'] = $value->find('div[class=limitnjg] img', 0)->src;
 				$json['sinopsis'] = $value->find('div[class=desc] p', 1)->plaintext;
 				$json['size'] = str_replace('Size : ', '', $value->find('div[class=desc] p', 6)->plaintext);
 				$output['data'][] = $json;
 			}
-			$endScriptTime		 =	microtime(TRUE);
-			$output['load_time'] =  round(($endScriptTime - $startScriptTime), 4);
+			$endScriptTime		= microtime(TRUE);
+			$output['load_time'] 	= round(($endScriptTime - $startScriptTime), 4);
 		} else {
 			return Self::show_err('404 Not Found');
 		}
